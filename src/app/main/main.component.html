@@ -1,0 +1,84 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <form (ngSubmit)="onSave()" [formGroup]="crud">
+        <div class="form-group">
+          <label for="firstname">First name</label>
+          <input
+            type="text"
+            name="firstname"
+            id="firstname"
+            class="form-control"
+            [(ngModel)]="this.current_form.firstname"
+            formControlName="firstname"
+          />
+        </div>
+        <div class="form-group">
+          <label for="lastname">Last name</label>
+          <input
+            type="text"
+            name="lastname"
+            id="lastname"
+            class="form-control"
+            [(ngModel)]="this.current_form.lastname"
+            formControlName="lastname"
+          />
+        </div>
+        <div class="form-group">
+          <label for="email">E-mail</label>
+          <input type="text" name="email" id="email" class="form-control" [(ngModel)]="this.current_form.email"
+          formControlName="email" />
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone</label>
+          <input type="text" name="phone" id="phone" class="form-control" [(ngModel)]="this.current_form.phone"
+          formControlName="phone" />
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary" [disabled]="!this.crud.valid">Save</button>
+          <button type="button" class="btn btn-secondary" (click)="onReset()">Reset</button>
+        </div>
+      </form>
+    </div>
+    <div class="col">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of datas; index as i">
+            <td>{{ data.firstname }}</td>
+            <td>{{ data.lastname }}</td>
+            <td>{{ data.email }}</td>
+            <td>{{ data.phone }}</td>
+            <td>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                (click)="onEdit(data)"
+              >
+                Edit
+              </button>
+            </td>
+            <td>
+              <button
+                type="button"
+                class="btn btn-danger"
+                (click)="onDelete(data._id)"
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
