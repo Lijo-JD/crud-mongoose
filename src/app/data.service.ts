@@ -20,13 +20,13 @@ export class DataService {
   }
 
   getSingleData(form: Form) {
-    // return this.http.get('http://localhost:3000/user/',{params: {id: form.id}})
+    // return this.http.get('http://localhost:3000/user/',{params: {id: form._id}})
     let url = 'http://localhost:3000/user/' + form._id
     return this.http.get(url)
   }
 
   editData(form: Form){
-    //return this.http.put('http://localhost:3000/user/', form, {params: {id: form.id}})
+    //return this.http.put('http://localhost:3000/user/', form, {params: {id: form._id}})
     let url = 'http://localhost:3000/user/' + form._id
     return this.http.put(url, form)
   }
