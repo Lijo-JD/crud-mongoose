@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { DataService } from '../data.service';
 import { Form } from '../form';
@@ -8,12 +8,12 @@ import { Form } from '../form';
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css']
 })
-export class MainComponent implements OnInit, OnChanges {
+export class MainComponent implements OnInit {
 
   datas : Form[];
   current_form = new Form();
 
-  constructor(private data: DataService, private ref: ChangeDetectorRef) { }
+  constructor(private data: DataService) { }
 
   getData(): void {
     this.data.getData().subscribe((data: Form[]) => {
@@ -23,13 +23,8 @@ export class MainComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.getData();
-    console.log("ngOnInit called");
   }
 
-  ngOnChanges(): void {
-    this.getData();
-    console.log("ngOnChanges called");
-  }
 
   crud = new FormGroup({
     firstname: new FormControl('', Validators.required),
@@ -47,14 +42,15 @@ export class MainComponent implements OnInit, OnChanges {
     if (this.current_form._id) {
       this.data.editData(this.current_form).subscribe((test: any) => {
         console.log(test);
+        this.getData()
       });
     } else {
       this.data.saveData(this.current_form).subscribe((test: any) => {
         console.log(test);
+        this.getData()
       });
     }
     this.crud.reset();
-    this.ref.detectChanges();
     console.log("Detect changes called")
   }
 
@@ -67,8 +63,8 @@ export class MainComponent implements OnInit, OnChanges {
   onDelete(id: string) {
     this.data.deleteData(id).subscribe((test: any) => {
       console.log(test);
+      this.getData()
     });
-    this.ref.detectChanges();
     console.log("Detect changes called")
   }
 
